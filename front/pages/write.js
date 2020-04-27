@@ -1,0 +1,68 @@
+import React, { useState, useCallback } from 'react';
+import { Input, Row, Col, Button } from "antd";
+
+const Writer = () => {
+
+    const [subject, setSubject] = useState('');
+    const [writer, setWriter] = useState('');
+    const [content, setContent] = useState('');
+
+    const onChangeSubject = useCallback((e) => {
+        setSubject(e.target.value);
+    },[subject]);
+
+    const onChangeWriter = useCallback((e) => {
+        setWriter(e.target.value);
+    },[writer]);
+
+    const onChangeContent = useCallback((e) => {
+        setContent(e.target.value);
+    },[content]);
+
+    const onSubmit = useCallback((e) => {
+        console.log(
+            subject,
+            writer,
+            content
+        );
+    },[subject, writer, content]);
+
+    return (
+        <>
+                <h3>Write</h3>
+                <br/>
+                <Row>
+                    <hr/>
+                    <Col span={5}>
+                        Subject
+                    </Col>
+                    <Col span={10}>
+                        <Input value={subject} onChange={onChangeSubject} />
+                    </Col>
+                </Row>
+                <Row>
+                    <hr/>
+                    <Col span={5}>
+                        Writer
+                    </Col>
+                    <Col span={10}>
+                        <Input value={writer} onChange={onChangeWriter}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <hr/>
+                    <Col span={5}>
+                        Content
+                    </Col>
+                    <Col span={15}>
+                        <Input.TextArea rows={10} value={content} onChange={onChangeContent} />
+                    </Col>
+                </Row>
+                <br/>
+                <Button style={{ float: 'right', left: '-50%'}} onClick={onSubmit}>write</Button>
+
+        </>
+    );
+};
+
+export default Writer;
