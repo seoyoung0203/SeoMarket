@@ -1,7 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Input, Row, Col, Button } from "antd";
+import { useDispatch } from 'react-redux';
+import { ADD_BOARD_REQUEST } from "../reducers/board";
 
 const Writer = () => {
+
+    const dispatch = useDispatch();
 
     const [subject, setSubject] = useState('');
     const [writer, setWriter] = useState('');
@@ -20,6 +24,9 @@ const Writer = () => {
     },[content]);
 
     const onSubmit = useCallback((e) => {
+        dispatch({
+            type: ADD_BOARD_REQUEST
+        });
         console.log(
             subject,
             writer,

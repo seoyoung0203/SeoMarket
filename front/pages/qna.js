@@ -1,8 +1,12 @@
 import React from 'react';
 import { Row, Col, Table, Button } from 'antd';
 import Link from "next/link";
+import { useSelector } from 'react-redux';
 
 const QnA = () => {
+
+    const { boardData } = useSelector(state => state.board);
+    console.log(boardData);
 
     const buttonStyle = {
         margin: '30px',
@@ -50,7 +54,7 @@ const QnA = () => {
                 <Button style={buttonStyle}><Link href="/write"><a>Write</a></Link></Button>
                 <Row>
                     <Col span={24}>
-                        <Table columns={columns} dataSource={data} />
+                        <Table columns={columns} dataSource={boardData} />
                     </Col>
 
                 </Row>

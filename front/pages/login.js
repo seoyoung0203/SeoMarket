@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Row, Col } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import {LOG_IN_REQUEST} from "../reducers/user";
 
 const Login = () => {
+
+    const dispatch = useDispatch();
+    const { isLogging, userData } = useSelector(state => state.user);
 
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -23,6 +28,13 @@ const Login = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        dispatch({
+            type: LOG_IN_REQUEST,
+            data: {
+                userId,
+                userPassword
+            }
+        });
         console.log(userId, userPassword);
     };
 
@@ -40,7 +52,9 @@ const Login = () => {
                         <Input value={userId} style={inputStyle} placeholder="아이디" onChange={onChangeId}/> <br/>
                         <Input value={userPassword} style={inputStyle} type="password" placeholder="비밀번호" onChange={onChangePassword}/>
                         <br/><br/>
-                        <Button type="link" style={{ color: 'black', float: 'right'}} onClick={onSubmit}>login</Button>
+                        <Button type="link" style={{ color: 'black', float: 'right'}} onClick={onSubmit} loading={isLogging}>
+                            LogIn
+                        </Button>
                     </Form>
                         </Col>
                     </Row>
