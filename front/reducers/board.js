@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
         case GET_ONE_BOARD_SUCCESS: {
             return {
                 ...state,
-                boardDatat: action.data
+                boardData: action.data
             };
         }
         case GET_ONE_BOARD_FAILURE: {
