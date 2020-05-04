@@ -1,63 +1,55 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Row, Col, Table, Button } from 'antd';
 import Link from "next/link";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { GET_BOARD_REQUEST } from '../reducers/board';
+import GetBoard from "../component/GetBoard";
 
 const QnA = () => {
 
-    const { boardData } = useSelector(state => state.board);
-    console.log(boardData);
+    const dispatch = useDispatch();
+    const { boardDataList } = useSelector(state => state.board);
 
     const buttonStyle = {
         margin: '30px',
-
     };
+
+    useEffect(() => {
+        dispatch({
+            type: GET_BOARD_REQUEST,
+        })
+    }, []);
 
     const columns = [
         {
             title: 'no',
-            dataIndex: 'no',
-            key: 'no',
+            dataIndex: 'boardIndex',
+            key: 'boardIndex',
         },
         {
             title: 'Subject',
             dataIndex: 'subject',
             key: 'subject',
-            render: text => <a style={{ color: 'black'}}>{text}</a>,
+            render: text => <a style={{ color: 'black'}} onClick={() => {return <GetBoard/>}}>{text}</a>,
         },
         {
             title: 'name',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'writer',
+            // key: 'userIndex',
         },
 
     ];
-    const data = [
-        {
-            key: '1',
-            no: '1',
-            name: '정서영',
-            age: 32,
-            subject: '문의합니다 :)'
-        },
-        {
-            key: '2',
-            no: '2',
-            name: '김우진',
-            age: 42,
-            subject: '문의합니다 :)'
-        },
-    ];
+
     return (
         <>
-                <h3>Q & A</h3>
-                <Button style={buttonStyle}><Link href="/write"><a>Write</a></Link></Button>
-                <Row>
-                    <Col span={24}>
-                        <Table columns={columns} dataSource={boardData} />
-                    </Col>
+            <h3>Q & A</h3>
+            <Button style={buttonStyle}><Link href="/write"><a>Write</a></Link></Button>
+            <Row>
+                <Col span={24}>
+                    <Table columns={columns} dataSource={boardDataList} />
+                </Col>
 
-                </Row>
+            </Row>
         </>
     );
 };

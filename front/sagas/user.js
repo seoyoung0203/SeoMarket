@@ -1,4 +1,5 @@
-import { all, delay, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, fork, put, takeEvery, call } from 'redux-saga/effects';
+import axios from 'axios';
 import {
     LOG_IN_SUCCESS,
     LOG_IN_FAILURE,
@@ -8,10 +9,21 @@ import {
     LOG_OUT_REQUEST
 } from '../reducers/user';
 
-function* login() {
+axios.defaults.baseURL = 'http://localhost:8084/api';
+
+function loginAPI(loginData) {
+    return axios.post('/user',loginData);
+}
+
+function logoutAPI() {
+    return axios.post('/user/logout');
+}
+
+
+function* login(action) {
     try {
-        // yield call(loginAPI);
-        yield delay(2000);
+        const result = yield call(loginAPI, action.data);
+        console.log(result);
         yield put({ // put은 dispatch 동일
             type: LOG_IN_SUCCESS,
         });
@@ -29,7 +41,7 @@ function* watchLogin() {
 
 function* logout() {
     try{
-        yield delay(2000);
+        yield logoutAPI();
         yield put({
            type: LOG_OUT_SUCCESS,
         });
@@ -44,7 +56,6 @@ function* logout() {
 function* watchLogout() {
     yield takeEvery(LOG_OUT_REQUEST, logout);
 }
-
 
 export default function* userSaga() {
     yield all([

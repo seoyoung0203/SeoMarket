@@ -31,8 +31,8 @@ const Login = () => {
         dispatch({
             type: LOG_IN_REQUEST,
             data: {
-                userId,
-                userPassword
+                userId: userId,
+                password: userPassword
             }
         });
         console.log(userId, userPassword);

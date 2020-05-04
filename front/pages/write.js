@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { Input, Row, Col, Button } from "antd";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ADD_BOARD_REQUEST } from "../reducers/board";
 
 const Writer = () => {
 
     const dispatch = useDispatch();
+    const { addBoard } = useSelector(state => state.board);
 
     const [subject, setSubject] = useState('');
     const [writer, setWriter] = useState('');
@@ -23,15 +24,21 @@ const Writer = () => {
         setContent(e.target.value);
     },[content]);
 
-    const onSubmit = useCallback((e) => {
-        dispatch({
-            type: ADD_BOARD_REQUEST
+    const onSubmit = useCallback(async (e) => {
+        e.preventDefault();
+        await dispatch({
+            type: ADD_BOARD_REQUEST,
+            data: {
+                subject,
+                writer,
+                content
+            }
         });
-        console.log(
-            subject,
-            writer,
-            content
-        );
+
+        alert('작성이 완료되었습니다');
+
+        location.href = "/qna";
+
     },[subject, writer, content]);
 
     return (
