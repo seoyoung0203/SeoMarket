@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Button } from 'antd';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {ADD_CART} from "../reducers/user";
+import { GET_ONE_ITEM_REQUEST } from '../reducers/item';
 
-const Item = () => {
+const Item = ({ itemIndex }) => {
 
     const dispatch = useDispatch();
+
+    const { itemData } = useSelector(state => state.item);
+
+    useEffect(() => {
+        dispatch({
+            type: GET_ONE_ITEM_REQUEST,
+            data: itemIndex
+        })
+    },[]);
 
     const addCart = () => {
         dispatch({
@@ -76,4 +86,14 @@ const Item = () => {
     );
 };
 
+Item.getInitialProps = async (context) => {
+    /*context.store.dispatch({
+       type: GET_ONE_ITEM_REQUEST,
+        data: context.query.itemIndex,
+    });*/
+    console.log('dffdf', context.query.itemIndex);
+    return { itemIndex: context.query.itemIndex };
+};
+
 export default Item;
+

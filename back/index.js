@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const userAPIRouter = require('./routes/user');
 const boardAPIRouter = require('./routes/board');
+const ItemAPIRouter = require('./routes/item');
 const dbconfig = require('./config/database');
 
 
@@ -24,6 +25,7 @@ app.get('/', async (req, res) => {
 
 app.use('/api/user', userAPIRouter);
 app.use('/api/board', boardAPIRouter);
+app.use('/api/item', ItemAPIRouter);
 
 app.listen(8084, () => {
    console.log('server is running on http://localhost:8084');

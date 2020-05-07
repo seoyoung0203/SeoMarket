@@ -9,7 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
 import AppLayout from '../component/AppLayout';
 
-const SeoMarket = ({ Component, store }) => {
+const SeoMarket = ({ Component, store, pageProps }) => {
     return (
         <Provider store={store}>
             <Head>
@@ -17,7 +17,7 @@ const SeoMarket = ({ Component, store }) => {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.15/antd.css" />
             </Head>
             <AppLayout>
-                <Component />
+                <Component {...pageProps} />
             </AppLayout>
         </Provider>
     );
@@ -26,6 +26,16 @@ const SeoMarket = ({ Component, store }) => {
 SeoMarket.propTypes = {
     Component: PropTypes.elementType,
     store: PropTypes.object,
+};
+
+SeoMarket.getInitialProps = async (context) => {
+    console.log(context);
+    const { ctx, Component } = context;
+    let pageProps = {};
+    if (Component.getInitialProps) {
+        pageProps = await Component.getInitialProps(ctx);
+    }
+    return { pageProps };
 };
 
 export default withRedux((initialState, options) => {

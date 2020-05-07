@@ -1,11 +1,5 @@
-const dummyItem = [{
-    itemName: '남방',
-    price: '25,000',
-    imgSrc: 'https://i.pinimg.com/originals/8c/48/ac/8c48ac164b67a1bcf2e0c373ee1f68e4.jpg',
-    content: '이쁜데 비싼 옷ㅠ'
-}];
-
 export const initialState = {
+    addItemData: null,
     itemData: null,
     itemDataList: [],
 };
@@ -18,6 +12,10 @@ export const GET_ITEM_REQUEST = 'GET_ITEM_REQUEST';
 export const GET_ITEM_SUCCESS = 'GET_ITEM_SUCCESS';
 export const GET_ITEM_FAILURE = 'GET_ITEM_FAILURE';
 
+export const GET_ONE_ITEM_REQUEST = 'GET_ONE_ITEM_REQUEST';
+export const GET_ONE_ITEM_SUCCESS = 'GET_ONE_ITEM_SUCCESS';
+export const GET_ONE_ITEM_FAILURE = 'GET_ONE_ITEM_FAILURE';
+
 export default (state = initialState, action) => {
     switch(action.type) {
         case ADD_ITEM_REQUEST: {
@@ -28,7 +26,7 @@ export default (state = initialState, action) => {
         case ADD_ITEM_SUCCESS: {
             return {
                 ...state,
-                itemData: dummyItem,
+                addItemData: action.data,
             }
         }
         case ADD_ITEM_FAILURE: {
@@ -40,18 +38,37 @@ export default (state = initialState, action) => {
         case GET_ITEM_REQUEST: {
             return {
                 ...state,
+                itemDataList: [],
             };
         }
         case GET_ITEM_SUCCESS: {
             return {
                 ...state,
-                itemDataList: dummyItem,
+                itemDataList: action.data,
             }
         }
         case GET_ITEM_FAILURE: {
             return {
                 ...state,
-
+                itemDataList: []
+            }
+        }
+        case GET_ONE_ITEM_REQUEST: {
+            return {
+                ...state,
+                itemData: null,
+            };
+        }
+        case GET_ONE_ITEM_SUCCESS: {
+            return {
+                ...state,
+                itemData: action.data,
+            }
+        }
+        case GET_ONE_ITEM_FAILURE: {
+            return {
+                ...state,
+                itemData: []
             }
         }
         default: {

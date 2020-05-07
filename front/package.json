@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next"
+    "dev": "nodemon"
   },
   "author": "seoyoung",
   "license": "ISC",
   "dependencies": {
     "antd": "^4.1.4",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "morgan": "^1.10.0",
     "next": "^9.3.5",
     "next-redux-wrapper": "^6.0.0-rc.7",
     "prop-types": "^15.7.2",

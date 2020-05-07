@@ -12,6 +12,9 @@ import {
     GET_ONE_BOARD_FAILURE
 } from "../reducers/board";
 
+axios.defaults.baseURL = 'http://localhost:8084/api';
+
+
 function addBoardAPI(boardData) {
     return axios.post('/board/', boardData);
 }

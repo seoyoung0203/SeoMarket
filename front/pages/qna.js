@@ -9,6 +9,7 @@ const QnA = () => {
 
     const dispatch = useDispatch();
     const { boardDataList } = useSelector(state => state.board);
+    console.log(boardDataList);
 
     const buttonStyle = {
         margin: '30px',
